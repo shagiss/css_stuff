@@ -1,0 +1,158 @@
+* {
+    box-sizing: border-box;
+}
+
+.slider {
+    width: 100%;
+    font-size: 0;
+    height: 250px;
+    line-height: 0;
+    direction: ltr;
+    display: block;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider .slider-navigation {
+    left: 50%;
+    bottom: 0;
+    width: auto;
+    display: flex;
+    margin: 0 auto;
+    position: absolute;
+    padding-bottom: 5px;
+    flex-direction: row;
+    transform-origin: center;
+    transform: translate(-50%, 0);
+}
+
+.slider input[type="radio"],
+.slider input[type="radio"]::before {
+    content: none;
+    appearance: none;
+}
+
+.slider .slider-navigation label {
+    flex: 1 1 auto;
+}
+
+.slider input[type="radio"] {
+    width: 13px;
+    height: 13px;
+    display: block;
+    cursor: pointer;
+    border-radius: 100%;
+    background: rgba(0,0,0,.25);
+}
+
+.slider input[type="radio"]:hover,
+.slider input[type="radio"]:focus,
+.slider input[type="radio"]:checked {
+    width: 25px;
+    border-radius: 10px;
+}
+
+.slider input[type="radio"]:checked { background-color: rgba(0,0,0,.5) }
+
+.slider .slider-row {
+    top: 0;
+    left: 0;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+
+    /*
+        IMPORTANT!
+        the width of this element depends on the number of the slides.
+        If you have one slide, it's 100%.
+        If you have two slides, it's 200%.
+        If you have three slides, it's 300%.
+        and so on.
+        (If you have 10 slides, it's 1000%.)
+
+        Right now we only have 3 slides
+        so it's 300%.
+     */
+    width: 300%;
+}
+
+.slider .slider-row .slide { flex: 1 1 auto }
+
+.slider .slider-navigation input,
+.slider .slider-row { transition: .5s linear }
+
+/* If the slides are empty, make them colorful */
+.slider .slider-row .slide:nth-child(1) { background-color: #8257ab }
+.slider .slider-row .slide:nth-child(2) { background-color: #578bab }
+.slider .slider-row .slide:nth-child(3) { background-color: #57ab6f }
+
+/* 
+   The cool effect! 
+
+   IMPORTANT!
+   the offset is calculated by the amount of items that we have.
+   If there are 3 elements, it's 100/3, which means it's 33.3 each one
+   so in order to show the second slide, the value is 33.3,
+   and in order to show the last slide, the value is 66.6.
+ */
+.slider:has(.slider-navigation label:nth-child(2) input:checked) .slider-row { transform: translate(-33.3%, 0) }
+.slider:has(.slider-navigation label:nth-child(3) input:checked) .slider-row { transform: translate(-66.6%, 0) }
+
+.slider .slider-side-navigation {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    position: absolute;
+    flex-direction: row;
+}
+
+.slider .slider-side-navigation .slider-side-navigation-block { 
+    flex: 1 1 auto;
+    position: relative;
+}
+
+.slider .slider-side-navigation label {
+    top: 50%;
+    width: 25px;
+    height: 25px;
+    margin: 0 10px;
+    display: block;
+    cursor: pointer;
+    position: absolute;
+    transform: translate(0, -50%);
+}
+
+.slider .slider-side-navigation label::before {
+    top: 50%;
+    left: 50%;
+    content: "";
+    padding: 6px;
+    position: absolute;
+    border-style: solid;
+    border-color: rgba(0,0,0,.33);
+    box-sizing: border-box;
+    border-width: 0 5px 5px 0;
+    transform: translate(-50%,-50%) rotate(-45deg);
+}
+
+.slider .slider-side-navigation .slider-side-navigation-block:nth-child(1) label::before { transform: translate(-50%,-50%) rotate(135deg) }
+
+.slider .slider-side-navigation .slider-side-navigation-block:nth-child(1) label { left: 0 }
+.slider .slider-side-navigation .slider-side-navigation-block:nth-child(2) label { right: 0 }
+
+/* Hide side buttons, depends on the number of the slide. */
+.slider:has(.slider-navigation label:nth-child(1) input:checked) .slider-side-navigation .slider-side-navigation-block:last-child > label:not(:nth-child(1)),
+
+.slider:has(.slider-navigation label:nth-child(2) input:checked) .slider-side-navigation .slider-side-navigation-block:first-child > label:not(:nth-child(1)),
+.slider:has(.slider-navigation label:nth-child(2) input:checked) .slider-side-navigation .slider-side-navigation-block:last-child > label:not(:nth-child(2)),
+
+.slider:has(.slider-navigation label:nth-child(3) input:checked) .slider-side-navigation .slider-side-navigation-block:first-child > label:not(:nth-child(2)),
+.slider:has(.slider-navigation label:nth-child(3) input:checked) .slider-side-navigation .slider-side-navigation-block:last-child > label:not(:nth-child(3)),
+
+/* and so on ... */
+
+.slider:has(.slider-navigation label:first-child input:checked) .slider-side-navigation .slider-side-navigation-block:first-child > label,
+.slider:has(.slider-navigation label:last-child input:checked) .slider-side-navigation .slider-side-navigation-block:last-child > label { visibility: hidden }

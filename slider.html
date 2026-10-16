@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        
+        <title>CSS Slider</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" type="text/css" href="slider.css">
+
+    </head>
+    <body style="padding:0;margin:0;font-size:0">
+    
+        <!-- Start -->
+
+        <div class="slider" style="height:100vh">
+
+            <div aria-hidden="true" class="slider-row">
+
+                <!-- This has aria-hidden="true" on purpose,
+                    because this might contain graphics
+                    and it might won't be compatible with screen readers.
+                    but the checkboxes and the labels will be accessible. -->                
+                <div class="slide"></div>
+                <div class="slide"></div>
+                <div class="slide"></div>
+
+            </div>
+
+            <div aria-hidden="true" class="slider-side-navigation">
+                <div class="slider-side-navigation-back slider-side-navigation-block">
+                    <label for="slide-1"></label>
+                    <label for="slide-2"></label>
+                </div>
+                <div class="slider-side-navigation-forward slider-side-navigation-block">
+                    <label for="slide-2"></label>
+                    <label for="slide-3"></label>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+
+            <div class="slider-navigation">
+
+                <label>
+                    <input type="radio" name="slider" value="1" id="slide-1" checked>
+                    First slide. Describe the contents of the first slide here for enhanced accessibility
+                </label>
+
+                <label>
+                    <input type="radio" name="slider" value="2" id="slide-2">
+                    Second slide. Do the same thing here
+                </label>
+
+                <label>
+                    <input type="radio" name="slider" value="3" id="slide-3">
+                    Third slide. Write something about this slide so it will be accessible for screen readers.
+                </label>
+
+            </div>
+
+        </div>
+
+        <!-- END -->
+
+    </body>
+</html>
